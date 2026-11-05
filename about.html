@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tiago Rohr — About &amp; Experience</title>
+  <meta name="description" content="About Tiago Rohr — Business Analytics & AI student at FIU. Software & Automation Developer." />
+
+  <!-- Font: Satoshi + JetBrains Mono -->
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700,900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        container: {
+          center: true,
+          padding: { DEFAULT: '1.5rem', sm: '2rem', lg: '4rem', xl: '5rem', '2xl': '5rem' },
+          screens: { '2xl': '1920px' },
+        },
+        extend: {
+          fontFamily: {
+            sans: ['Satoshi', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #fff;
+      color: #111;
+      font-family: 'Satoshi', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      margin: 0;
+    }
+    ::selection { background: rgba(0,0,0,0.12); color: #000; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #fff; }
+    ::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #bbb; }
+
+    .label-sm { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Floating Pill Toggle (Light page styling) */
+    .pill-nav {
+      display: flex;
+      align-items: center;
+      border-radius: 9999px;
+      background: #f1f1f3;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      border: 1px solid #e5e5e8;
+    }
+    .pill-nav .pill-indicator {
+      position: absolute;
+      top: 0; height: 100%;
+      width: 56px;
+      background: #000;
+      border-radius: 9999px;
+      left: 56px; /* Active on List (About) */
+      transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pill-nav a {
+      position: relative; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      width: 56px; height: 40px;
+      transition: color 0.25s ease;
+      text-decoration: none;
+    }
+
+    .divider-editorial { width: 100%; height: 1px; background: #e5e5e8; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════ NAVIGATION ═══════════════ -->
+  <header class="fixed top-0 left-0 right-0 z-50 px-6 lg:px-16 xl:px-20 py-5 lg:py-7 transition-all duration-300">
+    <div class="flex items-center justify-between">
+      <!-- Left: Name + Location -->
+      <a href="index.html" class="text-xs uppercase tracking-[0.12em] font-medium text-black hover:opacity-60 transition-opacity">
+        Tiago Rohr
+        <span class="text-gray-400 block lg:inline lg:ml-2">Miami, FL</span>
+      </a>
+
+      <!-- Center: Floating Pill (Grid = Work, List = About) -->
+      <div class="pill-nav fixed right-5 md:right-auto md:left-1/2 md:-translate-x-1/2 top-4 lg:top-7">
+        <div class="pill-indicator" style="left: 56px;"></div>
+        <!-- Grid Icon: Work (Links to index.html) -->
+        <a href="index.html" class="text-gray-500 hover:text-black" title="Work / Projects">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+        </a>
+        <!-- List Icon: About (Active on this page) -->
+        <a href="about.html" class="text-white" title="About / Background">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="2" width="14" height="2" rx="1"/><rect x="1" y="7" width="14" height="2" rx="1"/><rect x="1" y="12" width="14" height="2" rx="1"/></svg>
+        </a>
+      </div>
+
+      <!-- Right: Links (Desktop) -->
+      <div class="hidden md:flex items-center gap-4">
+        <div class="hidden lg:flex items-center gap-4">
+          <a href="https://www.linkedin.com/in/tiago-rohr" target="_blank" rel="noopener noreferrer" class="text-xs uppercase tracking-wide font-medium text-gray-500 hover:text-black transition-colors inline-flex items-center gap-1">
+            LIN<span class="text-[10px]">↗</span>
+          </a>
+          <a href="mailto:tiagorohr2005@gmail.com" class="text-xs uppercase tracking-wide font-medium text-gray-500 hover:text-black transition-colors inline-flex items-center gap-1">
+            EMAIL<span class="text-[10px]">↗</span>
+          </a>
+        </div>
+        <a href="#contact" class="text-xs uppercase tracking-[0.12em] font-medium text-black hover:opacity-60 transition-opacity">
+          Contact
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════ HERO STATEMENT (PART 2: ABOUT) ═══════════════ -->
+  <section class="pt-32 pb-16 md:pt-40 md:pb-24 bg-white">
+    <div class="container">
+      <div class="reveal">
+        <div class="flex flex-wrap items-center gap-3 mb-8">
+          <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-gray-200 text-gray-600 bg-gray-50">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            <span class="label-sm">Miami, FL</span>
+          </span>
+          <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-gray-200 text-gray-600 bg-gray-50">
+            <span class="label-sm">Bilingual (EN / ES)</span>
+          </span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-black leading-[1.1] tracking-[-0.02em] max-w-6xl">
+          I study how business operations can be transformed through analytics and artificial intelligence — and I build the software systems that power them.
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MAIN CONTENT: TWO-COLUMN EDITORIAL ═══════════════ -->
+  <section class="pb-24 md:pb-32 bg-white">
+    <div class="container">
+      <div class="divider-editorial mb-16"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-12">
+        <!-- ── Left Column: Experience, Education, Certifications ── -->
+        <div class="lg:col-span-4 space-y-16">
+          
+          <!-- Experience -->
+          <div class="reveal">
+            <h3 class="label-sm text-gray-400 mb-6">Experience</h3>
+            <div class="space-y-6">
+              <div>
+                <p class="text-sm font-medium text-black uppercase tracking-wide">Sports Management</p>
+                <p class="text-sm text-gray-500 mb-3">Temple Judea Preschool &amp; Early Childhood Center — Miami, FL</p>
+                <p class="text-xs font-mono text-gray-400 mb-3">June 2025 — June 2026</p>
+                <div class="text-sm text-gray-600 space-y-2 leading-relaxed">
+                  <p>→ Planned and executed weekly physical fitness programs serving hundreds of participants, ensuring safety and quality experiences.</p>
+                  <p>→ Designed creative sports schedules focused on engagement, resulting in overhauled athlete participation and skill enhancement.</p>
+                  <p>→ Coordinated resources and timelines with staff, revamping team performance by 10%.</p>
+                  <p>→ Arranged and controlled large-scale games and events for up to 150 people.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Education -->
+          <div class="reveal">
+            <h3 class="label-sm text-gray-400 mb-6">Education</h3>
+            <div class="p-5 rounded-xl border border-gray-200 bg-gray-50/50">
+              <div class="flex items-start gap-4">
+                <div class="w-11 h-11 rounded-lg bg-black text-white font-bold flex items-center justify-center text-sm flex-shrink-0">
+                  FIU
+                </div>
+                <div>
+                  <h4 class="text-base font-semibold text-black">Florida International University</h4>
+                  <p class="text-sm text-gray-500 mb-2">Miami, FL</p>
+                  <p class="text-sm text-gray-800 font-medium">BBA in Business Analytics &amp; Artificial Intelligence</p>
+                  <p class="text-sm text-gray-600 mb-3">Minor in Marketing</p>
+                  <div class="flex flex-wrap gap-2 text-xs font-mono">
+                    <span class="bg-white border border-gray-200 px-2.5 py-1 rounded text-black font-medium">GPA: 3.64</span>
+                    <span class="bg-white border border-gray-200 px-2.5 py-1 rounded text-gray-500">Grad: Dec 2027</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certifications -->
+          <div class="reveal">
+            <h3 class="label-sm text-gray-400 mb-6">Certifications</h3>
+            <div class="space-y-3">
+              <div class="py-2.5 border-b border-gray-100 flex items-center justify-between">
+                <span class="text-sm font-medium text-gray-900">AI Fluency: Framework &amp; Foundations</span>
+              </div>
+              <div class="py-2.5 border-b border-gray-100 flex items-center justify-between">
+                <span class="text-sm font-medium text-gray-900">Data Analytics Essentials</span>
+                <span class="text-xs font-mono text-gray-500">IBM / Coursera</span>
+              </div>
+              <div class="py-2.5 border-b border-gray-100 flex items-center justify-between">
+                <span class="text-sm font-medium text-gray-900">Leadership and Education</span>
+                <span class="text-xs font-mono text-gray-500">Juventud Betel</span>
+              </div>
+              <div class="py-2.5 border-b border-gray-100 flex items-center justify-between">
+                <span class="text-sm font-medium text-gray-900">CPR and First Aid</span>
+                <span class="text-xs font-mono text-gray-500">Juventud Betel</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ── Right Column: In-Depth Narrative & Philosophy ── -->
+        <div class="lg:col-span-8">
+          <div class="max-w-2xl reveal space-y-6">
+            <p class="text-lg md:text-xl text-black leading-relaxed font-normal">
+              I am an undergraduate student pursuing a degree in Business Analytics and Artificial Intelligence at FIU, with a hands-on foundation in program coordination, project leadership, and software engineering.
+            </p>
+            <p class="text-base text-gray-600 leading-relaxed">
+              My technical approach centers on practical problem solving: leveraging automated scripts, local and cloud LLM engines, and intuitive user interfaces to turn time-consuming manual workflows into seamless digital systems.
+            </p>
+            <p class="text-base text-gray-600 leading-relaxed">
+              Over the past year, I have engineered full-stack management solutions like <strong>OLAS ART</strong> (a tri-lingual studio management web application synchronizing schedules, payments, and inventory via Google Sheets), deployed regional fintech solutions like the <strong>Custom Loan Management System</strong> with 50+ menu-driven operations and automated PDF statements, and architected <strong>Lucky</strong>, a semi-autonomous AI ecosystem integrating local Ollama models with Gemini Cloud for intelligent inbox triage and task orchestration.
+            </p>
+            <p class="text-base text-gray-600 leading-relaxed">
+              My leadership background in sports management and program planning has sharpened my ability to communicate complex concepts clearly, manage resource constraints under pressure, and organize operations serving hundreds of participants.
+            </p>
+            <p class="text-base text-gray-600 leading-relaxed pt-2">
+              I am actively seeking internship and technical opportunities where I can apply my knowledge in Python, data analytics, automation engineering, and AI system design.
+            </p>
+
+            <div class="pt-6">
+              <a href="Tiago_Rohr_Resume.pdf" download="Tiago_Rohr_Resume.pdf" class="inline-flex items-center gap-2 text-sm font-medium text-black border border-black px-6 py-3 rounded-full hover:bg-black hover:text-white transition-all">
+                Download Official Resume (PDF) <span class="text-xs">↓</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ COMPETENCIES / SKILLS MATRIX ═══════════════ -->
+  <section class="py-20 md:py-24 bg-gray-50 border-t border-gray-200">
+    <div class="container">
+      <div class="reveal">
+        <h3 class="label-sm text-gray-500 mb-10">Technical Competencies &amp; Core Skills</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+          <div class="text-base font-medium text-gray-800 hover:text-black transition-colors">Python</div>
+          <div class="text-base font-medium text-gray-800 hover:text-black transition-colors">JavaScript</div>
+          <div class="text-base font-medium text-gray-800 hover:text-black transition-colors">Google Apps Script</div>
+          <div class="text-base font-medium text-gray-800 hover:text-black transition-colors">NoSQL &amp; JSON DB</div>
+          <div class="text-base font-medium text-gray-800 hover:text-black transition-colors">Data Analytics</div>
+          <div class="text-base font-medium text-gray-800 hover:text-black transition-colors">Data Visualization</div>
+          <div class="text-base font-medium text-gray-800 hover:text-black transition-colors">Artificial Intelligence</div>
+          <div class="text-base font-medium text-gray-800 hover:text-black transition-colors">Microsoft Excel</div>
+          <div class="text-base font-medium text-gray-800 hover:text-black transition-colors">Microsoft Office</div>
+          <div class="text-base font-medium text-gray-800 hover:text-black transition-colors">Marketing Strategy</div>
+          <div class="text-base font-medium text-gray-800 hover:text-black transition-colors">Project Planning</div>
+          <div class="text-base font-medium text-gray-800 hover:text-black transition-colors">Teamwork</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER & CONTACT ═══════════════ -->
+  <footer id="contact" class="bg-black text-white py-20 md:py-28">
+    <div class="container">
+      <div class="reveal mb-16">
+        <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[0.95] tracking-[-0.02em] mb-6">
+          Let's connect.
+        </h2>
+        <a href="mailto:tiagorohr2005@gmail.com" class="text-xl md:text-2xl text-gray-400 hover:text-white transition-colors inline-flex items-center gap-2 group">
+          tiagorohr2005@gmail.com
+          <span class="inline-block transition-transform group-hover:translate-x-2 text-gray-500">→</span>
+        </a>
+      </div>
+
+      <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
+        <div>
+          <p class="label-sm text-gray-500 mb-4">For Networking</p>
+          <a href="https://www.linkedin.com/in/tiago-rohr" target="_blank" rel="noopener noreferrer" class="text-base text-white hover:text-gray-300 transition-colors inline-flex items-center gap-2 group">
+            LinkedIn <span class="inline-block transition-transform group-hover:translate-x-1 text-gray-500">↗</span>
+          </a>
+        </div>
+        <div>
+          <p class="label-sm text-gray-500 mb-4">Direct Contact</p>
+          <div class="flex flex-col gap-2">
+            <a href="tel:+16452397885" class="text-base text-white hover:text-gray-300 transition-colors">+1 645 239 7885</a>
+            <a href="mailto:tiagorohr2005@gmail.com" class="text-base text-white hover:text-gray-300 transition-colors">tiagorohr2005@gmail.com</a>
+          </div>
+        </div>
+        <div>
+          <p class="label-sm text-gray-500 mb-4">Resume</p>
+          <a href="Tiago_Rohr_Resume.pdf" download="Tiago_Rohr_Resume.pdf" class="text-base text-white hover:text-gray-300 transition-colors inline-flex items-center gap-2 group">
+            Download PDF <span class="inline-block transition-transform group-hover:translate-x-1 text-gray-500">↓</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-gray-900 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-sm text-gray-500">
+        <p class="text-gray-600">© 2026 Tiago Rohr. All rights reserved.</p>
+        <nav class="flex items-center gap-8">
+          <a href="index.html" class="hover:text-white transition-colors">Work</a>
+          <a href="about.html" class="text-white">About</a>
+          <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      const header = document.querySelector('header');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 35) {
+          header.classList.add('bg-white/80', 'backdrop-blur-md', 'border-b', 'border-gray-200');
+        } else {
+          header.classList.remove('bg-white/80', 'backdrop-blur-md', 'border-b', 'border-gray-200');
+        }
+      }, { passive: true });
+    });
+  </script>
+
+</body>
+</html>
