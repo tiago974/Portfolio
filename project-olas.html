@@ -522,6 +522,26 @@
       document.querySelectorAll('a[href^="mailto:tiagorohr2005@gmail.com"]').forEach(link => {
         link.addEventListener('click', copyEmail);
       });
+
+      // Phone Link Handling: Initiates call on mobile, copies to clipboard on desktop to prevent about:invalid
+      document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+          const isMobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+          if (!isMobile) {
+            e.preventDefault();
+            const phone = '+1 645 239 7885';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(phone).then(() => {
+                showToast('Phone number copied to clipboard!');
+              }).catch(() => {
+                window.location.href = 'tel:+16452397885';
+              });
+            } else {
+              window.location.href = 'tel:+16452397885';
+            }
+          }
+        });
+      });
     });
   </script>
 
