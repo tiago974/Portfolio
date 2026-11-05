@@ -128,7 +128,7 @@
   <section class="pt-24 lg:pt-32 bg-black">
     <div class="container">
       <div class="reveal screenshot-frame aspect-[16/9] w-full">
-        <img src="assets/projects/loan-dashboard.png" alt="Custom Loan Management System Dashboard" class="w-full h-full object-cover object-top" />
+        <img src="assets/projects/loan-1.png" alt="Custom Loan Management System Dashboard" class="w-full h-full object-cover object-top" />
         <span class="zoom-hint">Click to enlarge ⤢</span>
       </div>
     </div>
@@ -220,7 +220,7 @@
     <!-- View 1: Financial Dashboard -->
     <div class="space-y-6 reveal">
       <div class="screenshot-frame">
-        <img src="assets/projects/loan-dashboard.png" alt="Sistema de Prestamos — Tablero Financiero" />
+        <img src="assets/projects/loan-1.png" alt="Sistema de Prestamos — Tablero Financiero" />
         <span class="zoom-hint">Click to enlarge ⤢</span>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-2">
@@ -240,47 +240,93 @@
       </div>
     </div>
 
-    <!-- View 2: Loan Origination Modal -->
+    <!-- View 2: Delinquency & Collections Ledger -->
     <div class="space-y-6 reveal">
       <div class="screenshot-frame">
-        <img src="assets/projects/loan-modal.jpg" alt="Nuevo Prestamo Modal Dialog" />
+        <img src="assets/projects/loan-2.png" alt="Control de Cobranza y Cuotas Atrasadas" />
         <span class="zoom-hint">Click to enlarge ⤢</span>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-2">
         <div class="md:col-span-4">
           <span class="text-xs font-mono text-gray-500 block mb-1">INTERFACE // 02</span>
-          <h3 class="text-xl font-medium text-white">Loan Origination Workflow</h3>
-          <p class="text-xs font-mono text-gray-500 mt-1">Client Linking &amp; Automated Installment Engine</p>
+          <h3 class="text-xl font-medium text-white">Collections &amp; Arrears Ledger</h3>
+          <p class="text-xs font-mono text-gray-500 mt-1">Delinquency Ageing &amp; Real-Time Balance Tracking</p>
         </div>
         <div class="md:col-span-8 text-sm md:text-base text-gray-400 leading-relaxed space-y-2">
           <p>
-            A streamlined modal interface for creating new loan agreements. Lenders link an existing client record (e.g. C0006 - Nadia Gomez), select repayment frequency (daily, weekly, bi-weekly, monthly), enter principal capital and term, choose collection type (Capital + Profit or Interest-only), and automatically generate amortization installment tables with customized maturity dates.
+            Granular collections ledger tracking overdue installments by severity. Each row details client contact numbers, loan and installment identifiers (e.g. Q0036 / L0005), scheduled maturity dates, expected installment amount, partial payment history, remaining balance, and an automated delinquency day counter for immediate recovery prioritization.
           </p>
           <p class="text-xs font-mono text-gray-600">
-            * All client names, identification codes, and repayment values shown are mock records.
+            * All client contact information, overdue balances, and dates shown are simulated test data.
           </p>
         </div>
       </div>
     </div>
 
-    <!-- View 3: Cash Flow Forecast Report -->
+    <!-- View 3: Client Onboarding Modal -->
     <div class="space-y-6 reveal">
       <div class="screenshot-frame">
-        <img src="assets/projects/loan-report.jpg" alt="Flujo Futuro — Cash Flow Projections Report" />
+        <img src="assets/projects/loan-3.png" alt="Nuevo Cliente — Client Onboarding & Verification Workflow" />
         <span class="zoom-hint">Click to enlarge ⤢</span>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-2">
         <div class="md:col-span-4">
           <span class="text-xs font-mono text-gray-500 block mb-1">INTERFACE // 03</span>
-          <h3 class="text-xl font-medium text-white">Future Cash Flow Forecast Report</h3>
-          <p class="text-xs font-mono text-gray-500 mt-1">Rolling Multi-Period Projections &amp; PDF Export</p>
+          <h3 class="text-xl font-medium text-white">Client Onboarding Workflow</h3>
+          <p class="text-xs font-mono text-gray-500 mt-1">Verification Dialog &amp; Demographic Linkage</p>
         </div>
         <div class="md:col-span-8 text-sm md:text-base text-gray-400 leading-relaxed space-y-2">
           <p>
-            An automated forecasting report segmenting incoming receivables across multiple temporal windows: current week, next week, current month, next month, and a rolling 30-day projection. Lenders can review client breakdowns, maturity schedules, expected principal vs profit returns, and export professional PDF statements with one click.
+            A standardized dialog window for client underwriting and onboarding. Enforces strict input validation for full legal names, USA local telephone formatting ((xxx) xxx-xxxx), residential address verification, employer or business registry, workplace location, and referral attribution to maintain accountability.
           </p>
           <p class="text-xs font-mono text-gray-600">
-            * All installment numbers, profit splits, and client names displayed are simulated dummy records.
+            * All form fields, phone placeholders, and address blocks are mock configuration data.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- View 4: Executive Financial Statement Report -->
+    <div class="space-y-6 reveal">
+      <div class="screenshot-frame">
+        <img src="assets/projects/loan-4.png" alt="Finanzas General — Executive Financial Statement & Cash Velocity" />
+        <span class="zoom-hint">Click to enlarge ⤢</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-2">
+        <div class="md:col-span-4">
+          <span class="text-xs font-mono text-gray-500 block mb-1">INTERFACE // 04</span>
+          <h3 class="text-xl font-medium text-white">Executive Financial Statement</h3>
+          <p class="text-xs font-mono text-gray-500 mt-1">Periodic Cash Flow &amp; Capital Velocity Analysis</p>
+        </div>
+        <div class="md:col-span-8 text-sm md:text-base text-gray-400 leading-relaxed space-y-2">
+          <p>
+            Automated executive statement generated via Apps Script PDF engine. Broken into three analytical dimensions: immediate liquidity allocation ("Dónde está el dinero hoy"), movements and net results grouped across 5 temporal horizons (Current month, Last month, This week, Last 90 days, Last 12 months), and capital velocity yield percentages.
+          </p>
+          <p class="text-xs font-mono text-gray-600">
+            * All financial aggregations, yields, and balance figures displayed are simulated dummy records.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- View 5: Portfolio Health & Historical Performance -->
+    <div class="space-y-6 reveal">
+      <div class="screenshot-frame">
+        <img src="assets/projects/loan-5.png" alt="Salud de la Cartera & Historico del Sistema Report" />
+        <span class="zoom-hint">Click to enlarge ⤢</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-2">
+        <div class="md:col-span-4">
+          <span class="text-xs font-mono text-gray-500 block mb-1">INTERFACE // 05</span>
+          <h3 class="text-xl font-medium text-white">Portfolio Health &amp; Historical Yields</h3>
+          <p class="text-xs font-mono text-gray-500 mt-1">Delinquency Ratios &amp; Visual Earnings Distribution</p>
+        </div>
+        <div class="md:col-span-8 text-sm md:text-base text-gray-400 leading-relaxed space-y-2">
+          <p>
+            Comprehensive risk and lifetime performance report: active open loans vs. overdue accounts, cumulative capital lent vs. recovered, paid-off loans count, and a monthly breakdown of collected profit with horizontal bar comparison to spot seasonal liquidity patterns.
+          </p>
+          <p class="text-xs font-mono text-gray-600">
+            * All loan counts, percentage ratios, and historical earnings shown are mock records.
           </p>
         </div>
       </div>
@@ -300,6 +346,40 @@
         <a href="index.html" class="inline-flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-white border border-gray-800 hover:border-gray-600 px-6 py-3 rounded-full transition-all">
           ← Back to all projects
         </a>
+      </div>
+
+      <!-- Main Contact CTA -->
+      <div class="reveal mb-14 pt-10 border-t border-gray-900">
+        <h2 class="text-3xl md:text-5xl font-bold text-white tracking-[-0.02em] mb-4">
+          Let's connect.
+        </h2>
+        <a href="mailto:tiagorohr2005@gmail.com" class="text-lg md:text-2xl text-gray-400 hover:text-white transition-colors inline-flex items-center gap-2 group">
+          tiagorohr2005@gmail.com
+          <span class="inline-block transition-transform group-hover:translate-x-2 text-gray-500">→</span>
+        </a>
+      </div>
+
+      <!-- Links Grid -->
+      <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-8 mb-14">
+        <div>
+          <p class="label-sm text-gray-500 mb-3">For Networking</p>
+          <a href="https://www.linkedin.com/in/tiago-rohr" target="_blank" rel="noopener noreferrer" class="text-sm md:text-base text-white hover:text-gray-300 transition-colors inline-flex items-center gap-2 group">
+            LinkedIn <span class="inline-block transition-transform group-hover:translate-x-1 text-gray-500">↗</span>
+          </a>
+        </div>
+        <div>
+          <p class="label-sm text-gray-500 mb-3">Direct Contact</p>
+          <div class="flex flex-col gap-1.5">
+            <a href="tel:+16452397885" class="text-sm md:text-base text-white hover:text-gray-300 transition-colors">+1 645 239 7885</a>
+            <a href="mailto:tiagorohr2005@gmail.com" class="text-sm md:text-base text-white hover:text-gray-300 transition-colors">tiagorohr2005@gmail.com</a>
+          </div>
+        </div>
+        <div>
+          <p class="label-sm text-gray-500 mb-3">Resume</p>
+          <a href="Tiago_Rohr_Resume.pdf" download="Tiago_Rohr_Resume.pdf" class="text-sm md:text-base text-white hover:text-gray-300 transition-colors inline-flex items-center gap-2 group">
+            Download PDF <span class="inline-block transition-transform group-hover:translate-x-1 text-gray-500">↓</span>
+          </a>
+        </div>
       </div>
 
       <div class="pt-8 border-t border-gray-900 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-sm text-gray-600">
@@ -322,6 +402,14 @@
         <p id="lightbox-caption" class="text-gray-300"></p>
         <p class="text-gray-600">* Click outside or press ESC to close</p>
       </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ MINIMALIST CLIPBOARD TOAST ═══════════════ -->
+  <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[200] pointer-events-none opacity-0 translate-y-3 transition-all duration-300">
+    <div class="px-5 py-2.5 rounded-full bg-white text-black text-xs font-mono font-medium shadow-2xl flex items-center gap-2.5 border border-black/10">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-600"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      <span>Email copied to clipboard!</span>
     </div>
   </div>
 
@@ -386,6 +474,54 @@
         if (e.key === 'Escape' && lightbox && !lightbox.classList.contains('hidden')) {
           closeLightbox();
         }
+      });
+
+      // Copy Email to Clipboard with Minimalist Toast
+      const toast = document.getElementById('toast');
+      let toastTimeout;
+
+      function showToast(message = 'Email copied to clipboard!') {
+        if (!toast) return;
+        const textEl = toast.querySelector('span');
+        if (textEl) textEl.textContent = message;
+        toast.classList.remove('opacity-0', 'translate-y-3', 'pointer-events-none');
+        toast.classList.add('opacity-100', 'translate-y-0');
+
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('opacity-100', 'translate-y-0');
+          toast.classList.add('opacity-0', 'translate-y-3', 'pointer-events-none');
+        }, 2500);
+      }
+
+      function copyEmail(e) {
+        if (e) e.preventDefault();
+        const email = 'tiagorohr2005@gmail.com';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(() => showToast()).catch(() => fallbackCopy(email));
+        } else {
+          fallbackCopy(email);
+        }
+      }
+
+      function fallbackCopy(text) {
+        const temp = document.createElement('textarea');
+        temp.value = text;
+        temp.style.position = 'fixed';
+        temp.style.opacity = '0';
+        document.body.appendChild(temp);
+        temp.select();
+        try {
+          document.execCommand('copy');
+          showToast();
+        } catch (err) {
+          window.location.href = `mailto:${text}`;
+        }
+        document.body.removeChild(temp);
+      }
+
+      document.querySelectorAll('a[href^="mailto:tiagorohr2005@gmail.com"]').forEach(link => {
+        link.addEventListener('click', copyEmail);
       });
     });
   </script>

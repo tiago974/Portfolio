@@ -199,8 +199,19 @@
   </header>
 
   <!-- ═══════════════ HERO ═══════════════ -->
-  <section id="hero" class="min-h-[64vh] flex items-end bg-black text-white pt-32 lg:pt-40 pb-12 overflow-hidden">
+  <section id="hero" class="bg-black text-white pb-12 overflow-hidden">
     <div class="container">
+      <!-- Prominent Header Block: Name & Philosophy Quote -->
+      <div class="pt-28 lg:pt-36 mb-12 lg:mb-16 border-b border-gray-900 pb-10 lg:pb-14 reveal">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-black text-white tracking-tight uppercase leading-[0.95]">
+          TIAGO ROHR
+        </h1>
+        <p class="text-base sm:text-lg md:text-xl text-gray-400 italic font-light max-w-2xl mt-3 leading-relaxed">
+          &ldquo;I do the best I can until I know better. And when I know better, I do better.&rdquo;
+        </p>
+      </div>
+
+      <!-- Main Headline Grid with Badges, Building what's next, and CTAs -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-end">
         <!-- Main headline with subtle parallax -->
         <div class="lg:col-span-7" id="hero-title">
@@ -213,9 +224,9 @@
               <span class="label-sm">Bilingual Architecture (EN/ES)</span>
             </span>
           </div>
-          <h1 class="text-display-xl font-bold text-white tracking-[-0.03em] leading-[0.9]">
+          <h2 class="text-display-xl font-bold text-white tracking-[-0.03em] leading-[0.9]">
             Building<br/>what's next.
-          </h1>
+          </h2>
         </div>
 
         <!-- Supporting text -->
@@ -370,6 +381,14 @@
     </div>
   </footer>
 
+  <!-- ═══════════════ MINIMALIST CLIPBOARD TOAST ═══════════════ -->
+  <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[200] pointer-events-none opacity-0 translate-y-3 transition-all duration-300">
+    <div class="px-5 py-2.5 rounded-full bg-white text-black text-xs font-mono font-medium shadow-2xl flex items-center gap-2.5 border border-black/10">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-600"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      <span>Email copied to clipboard!</span>
+    </div>
+  </div>
+
   <!-- ═══════════════ SCRIPTS ═══════════════ -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -425,6 +444,54 @@
           ticking = true;
         }
       }, { passive: true });
+
+      // Copy Email to Clipboard with Minimalist Toast
+      const toast = document.getElementById('toast');
+      let toastTimeout;
+
+      function showToast(message = 'Email copied to clipboard!') {
+        if (!toast) return;
+        const textEl = toast.querySelector('span');
+        if (textEl) textEl.textContent = message;
+        toast.classList.remove('opacity-0', 'translate-y-3', 'pointer-events-none');
+        toast.classList.add('opacity-100', 'translate-y-0');
+
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('opacity-100', 'translate-y-0');
+          toast.classList.add('opacity-0', 'translate-y-3', 'pointer-events-none');
+        }, 2500);
+      }
+
+      function copyEmail(e) {
+        if (e) e.preventDefault();
+        const email = 'tiagorohr2005@gmail.com';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(() => showToast()).catch(() => fallbackCopy(email));
+        } else {
+          fallbackCopy(email);
+        }
+      }
+
+      function fallbackCopy(text) {
+        const temp = document.createElement('textarea');
+        temp.value = text;
+        temp.style.position = 'fixed';
+        temp.style.opacity = '0';
+        document.body.appendChild(temp);
+        temp.select();
+        try {
+          document.execCommand('copy');
+          showToast();
+        } catch (err) {
+          window.location.href = `mailto:${text}`;
+        }
+        document.body.removeChild(temp);
+      }
+
+      document.querySelectorAll('a[href^="mailto:tiagorohr2005@gmail.com"]').forEach(link => {
+        link.addEventListener('click', copyEmail);
+      });
     });
   </script>
 

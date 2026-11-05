@@ -325,6 +325,14 @@
     </div>
   </footer>
 
+  <!-- ═══════════════ MINIMALIST CLIPBOARD TOAST ═══════════════ -->
+  <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[200] pointer-events-none opacity-0 translate-y-3 transition-all duration-300">
+    <div class="px-5 py-2.5 rounded-full bg-black text-white text-xs font-mono font-medium shadow-2xl flex items-center gap-2.5 border border-white/10">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      <span>Email copied to clipboard!</span>
+    </div>
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const observer = new IntersectionObserver((entries) => {
@@ -345,6 +353,54 @@
           header.classList.remove('bg-white/80', 'backdrop-blur-md', 'border-b', 'border-gray-200');
         }
       }, { passive: true });
+
+      // Copy Email to Clipboard with Minimalist Toast
+      const toast = document.getElementById('toast');
+      let toastTimeout;
+
+      function showToast(message = 'Email copied to clipboard!') {
+        if (!toast) return;
+        const textEl = toast.querySelector('span');
+        if (textEl) textEl.textContent = message;
+        toast.classList.remove('opacity-0', 'translate-y-3', 'pointer-events-none');
+        toast.classList.add('opacity-100', 'translate-y-0');
+
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('opacity-100', 'translate-y-0');
+          toast.classList.add('opacity-0', 'translate-y-3', 'pointer-events-none');
+        }, 2500);
+      }
+
+      function copyEmail(e) {
+        if (e) e.preventDefault();
+        const email = 'tiagorohr2005@gmail.com';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(() => showToast()).catch(() => fallbackCopy(email));
+        } else {
+          fallbackCopy(email);
+        }
+      }
+
+      function fallbackCopy(text) {
+        const temp = document.createElement('textarea');
+        temp.value = text;
+        temp.style.position = 'fixed';
+        temp.style.opacity = '0';
+        document.body.appendChild(temp);
+        temp.select();
+        try {
+          document.execCommand('copy');
+          showToast();
+        } catch (err) {
+          window.location.href = `mailto:${text}`;
+        }
+        document.body.removeChild(temp);
+      }
+
+      document.querySelectorAll('a[href^="mailto:tiagorohr2005@gmail.com"]').forEach(link => {
+        link.addEventListener('click', copyEmail);
+      });
     });
   </script>
 
