@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lucky — Project Case Study &amp; Architecture</title>
+  <meta name="description" content="Lucky — Semi-Autonomous AI Agent &amp; Sub-Agent Ecosystem by Tiago Rohr." />
+
+  <!-- Font: Satoshi + JetBrains Mono -->
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700,900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        container: {
+          center: true,
+          padding: { DEFAULT: '1.5rem', sm: '2rem', lg: '4rem', xl: '5rem', '2xl': '5rem' },
+          screens: { '2xl': '1920px' },
+        },
+        extend: {
+          fontFamily: {
+            sans: ['Satoshi', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Satoshi', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      margin: 0;
+    }
+    ::selection { background: rgba(255,255,255,0.2); color: #fff; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #222; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #444; }
+
+    .label-sm { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 500; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .screenshot-frame {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: #09090d;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      cursor: zoom-in;
+    }
+    .screenshot-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s ease, filter 0.3s ease;
+    }
+    .screenshot-frame:hover img {
+      transform: scale(1.015);
+      filter: brightness(1.04);
+    }
+    .screenshot-frame .zoom-hint {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      z-index: 10;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 0.72rem;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: all 0.25s ease;
+      pointer-events: none;
+    }
+    .screenshot-frame:hover .zoom-hint {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════ NAVIGATION ═══════════════ -->
+  <header class="fixed top-0 left-0 right-0 z-50 px-6 lg:px-16 xl:px-20 py-5 lg:py-7 bg-black/80 backdrop-blur-md border-b border-white/5">
+    <div class="flex items-center justify-between">
+      <a href="index.html" class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.12em] font-medium text-gray-400 hover:text-white transition-colors group">
+        <span class="inline-block transition-transform group-hover:-translate-x-1">←</span>
+        Back to work
+      </a>
+
+      <div class="flex items-center gap-4 text-xs font-mono text-gray-500">
+        <span>PROJECT // 01</span>
+      </div>
+
+      <a href="#contact" class="text-xs uppercase tracking-[0.12em] font-medium text-white hover:opacity-60 transition-opacity">
+        Contact
+      </a>
+    </div>
+  </header>
+
+  <!-- ═══════════════ PROJECT HERO BANNER ═══════════════ -->
+  <section class="pt-24 lg:pt-32 bg-black">
+    <div class="container">
+      <div class="reveal screenshot-frame aspect-[16/9] w-full">
+        <img src="assets/projects/lucky-1.png" alt="Lucky AI Agent Ecosystem Main Orchestration Console" class="w-full h-full object-cover object-top" />
+        <span class="zoom-hint">Click to enlarge ⤢</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ METADATA SECTION ═══════════════ -->
+  <section class="container py-12 lg:py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      <!-- Left: Title & Subtitle -->
+      <div class="lg:col-span-7">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-white leading-[1.1] tracking-[-0.02em] mb-4">
+          Lucky — Semi-Autonomous AI Agent Ecosystem
+        </h1>
+        <p class="text-lg md:text-xl text-gray-400 leading-relaxed max-w-xl">
+          Modular multi-engine AI assistant architecture in Python and Streamlit featuring dual local/cloud LLM fallback, file-based configuration, and specialized autonomous sub-agents.
+        </p>
+      </div>
+
+      <!-- Right: Technical Details -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <p class="label-sm text-gray-500 mb-1.5">Timeline</p>
+            <p class="text-base text-white font-medium">September 2026 – Present</p>
+            <p class="text-xs font-mono text-gray-500 mt-0.5">Independent Project</p>
+          </div>
+          <div>
+            <p class="label-sm text-gray-500 mb-1.5">Role</p>
+            <p class="text-base text-white font-medium">Lead Developer &amp; Architect</p>
+            <p class="text-xs font-mono text-gray-500 mt-0.5">Architecture &amp; Core Logic</p>
+          </div>
+        </div>
+
+        <div>
+          <p class="label-sm text-gray-500 mb-3">Technologies &amp; Architecture</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs font-mono text-gray-300 border border-gray-800 bg-white/[0.02] px-3 py-1.5 rounded-full">Python</span>
+            <span class="text-xs font-mono text-gray-300 border border-gray-800 bg-white/[0.02] px-3 py-1.5 rounded-full">Streamlit</span>
+            <span class="text-xs font-mono text-gray-300 border border-gray-800 bg-white/[0.02] px-3 py-1.5 rounded-full">Ollama (Llama 3.1)</span>
+            <span class="text-xs font-mono text-gray-300 border border-gray-800 bg-white/[0.02] px-3 py-1.5 rounded-full">Gemini Cloud API</span>
+            <span class="text-xs font-mono text-gray-300 border border-gray-800 bg-white/[0.02] px-3 py-1.5 rounded-full">JSON Persistence</span>
+            <span class="text-xs font-mono text-gray-300 border border-gray-800 bg-white/[0.02] px-3 py-1.5 rounded-full">Sub-Agent Orchestration</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="container">
+    <div class="w-full h-px bg-gray-900"></div>
+  </div>
+
+  <!-- ═══════════════ DETAILED ARCHITECTURAL INSIGHTS ═══════════════ -->
+  <section class="container py-14 lg:py-20">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-4">
+        <p class="label-sm text-gray-500 mb-3">Executive Summary &amp; Motivation</p>
+        <h2 class="text-2xl font-medium text-white leading-snug">
+          Decoupling agent intelligence from cloud dependency.
+        </h2>
+      </div>
+      <div class="lg:col-span-8 space-y-6 text-base md:text-lg text-gray-400 leading-relaxed">
+        <p>
+          Most conventional AI chat interfaces are rigid wrappers around single proprietary API endpoints. When connectivity drops or API quotas throttle requests, the entire workflow grinds to a halt. Furthermore, user preferences and agent personas often remain trapped inside opaque database schemas.
+        </p>
+        <p>
+          <strong>Lucky</strong> was engineered from the ground up as a resilient, semi-autonomous assistant ecosystem. It implements a dual-engine inference pipeline: high-throughput, private local inference powered by <strong>Ollama (Llama 3.1)</strong> with automatic fallback to <strong>Gemini Cloud</strong> for complex analytical queries requiring broad world knowledge or extended reasoning.
+        </p>
+        <p>
+          Configuration and persona states are preserved through an auditable, file-based architecture (<strong>SOUL</strong> for agent persona and ethical bounds, <strong>IDENTITY</strong> for technical capabilities and system instructions, and <strong>USER</strong> for evolving profile preferences), paired with local JSON memory persistence.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="container">
+    <div class="w-full h-px bg-gray-900"></div>
+  </div>
+
+  <!-- ═══════════════ SCREENSHOT GALLERY & SYSTEM INSIGHTS ═══════════════ -->
+  <section class="container py-16 lg:py-24 space-y-20">
+    <div class="max-w-xl">
+      <p class="label-sm text-gray-500 mb-2">Production Walkthrough</p>
+      <h2 class="text-3xl font-medium text-white">System Views &amp; Capabilities</h2>
+    </div>
+
+    <!-- View 1: Main Orchestrator -->
+    <div class="space-y-6 reveal">
+      <div class="screenshot-frame">
+        <img src="assets/projects/lucky-1.png" alt="Lucky AI Ecosystem — Main Orchestration Console and Project General" />
+        <span class="zoom-hint">Click to enlarge ⤢</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-2">
+        <div class="md:col-span-4">
+          <span class="text-xs font-mono text-gray-500 block mb-1">VIEW // 01</span>
+          <h3 class="text-xl font-medium text-white">Main Orchestration Console</h3>
+          <p class="text-xs font-mono text-gray-500 mt-1">Project Workspace &amp; Dual Engine Monitor</p>
+        </div>
+        <div class="md:col-span-8 text-sm md:text-base text-gray-400 leading-relaxed space-y-2">
+          <p>
+            The main cockpit acts as the central command center for Lucky. Users can select and edit project workspaces, review active status across autonomous sub-agents, trigger immediate clasp sync with cloud databases, and interact with the dual-engine reasoning prompt.
+          </p>
+          <p class="text-xs font-mono text-gray-600">
+            * All displayed dialogues, account handles, and memory summaries are simulated dummy data.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- View 2: Sub-Agents & Intelligence Engine -->
+    <div class="space-y-6 reveal">
+      <div class="screenshot-frame">
+        <img src="assets/projects/lucky-2.png" alt="Lucky AI Ecosystem — Sub-Agents, JSON Memory & Intelligence Waterfall" />
+        <span class="zoom-hint">Click to enlarge ⤢</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-2">
+        <div class="md:col-span-4">
+          <span class="text-xs font-mono text-gray-500 block mb-1">VIEW // 02</span>
+          <h3 class="text-xl font-medium text-white">Sub-Agents &amp; Memory Architecture</h3>
+          <p class="text-xs font-mono text-gray-500 mt-1">Ollama / Gemini Waterfall &amp; Local JSON Persistence</p>
+        </div>
+        <div class="md:col-span-8 text-sm md:text-base text-gray-400 leading-relaxed space-y-2">
+          <p>
+            Detailed view of the platform sidebar: status monitors for the Marian Email Digest sub-agent and pending Job Application agent, rapid inspection for active persistent memory (<code class="font-mono text-xs bg-white/5 px-2 py-0.5 rounded text-gray-300">memory.json</code>), engine switcher (Llama 3.1 Local with tool capabilities vs. Gemini Cloud waterfall), and git synchronization triggers.
+          </p>
+          <p class="text-xs font-mono text-gray-600">
+            * All telemetry indicators, engine configs, and tool references shown are simulated test data.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- View 3: Marian Email Sub-Agent -->
+    <div class="space-y-6 reveal">
+      <div class="screenshot-frame">
+        <img src="assets/projects/lucky-3.png" alt="Marian Sub-Agent — 24h Intelligence Report & Automated Inbox Triage" />
+        <span class="zoom-hint">Click to enlarge ⤢</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-2">
+        <div class="md:col-span-4">
+          <span class="text-xs font-mono text-gray-500 block mb-1">VIEW // 03</span>
+          <h3 class="text-xl font-medium text-white">Marian Email Digest Sub-Agent</h3>
+          <p class="text-xs font-mono text-gray-500 mt-1">Automated Triage &amp; 24h Executive Briefing</p>
+        </div>
+        <div class="md:col-span-8 text-sm md:text-base text-gray-400 leading-relaxed space-y-2">
+          <p>
+            Marian is a specialized sub-agent running in the background. It analyzes headers and body context across monitored personal and professional inboxes, categorizes opportunities (Job Related, News &amp; Low Priority, Urgent Follow-ups), and synthesizes an actionable triage table so high-value alerts are addressed immediately.
+          </p>
+          <p class="text-xs font-mono text-gray-600">
+            * All sender names, email previews, and category badges shown are mock test records.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER & BACK LINK ═══════════════ -->
+  <footer id="contact" class="bg-black text-white border-t border-gray-900 py-20 md:py-28">
+    <div class="container">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-16">
+        <div>
+          <p class="label-sm text-gray-500 mb-2">Next Project</p>
+          <a href="project-olas.html" class="text-2xl md:text-3xl font-medium text-white hover:text-gray-300 transition-colors inline-flex items-center gap-3 group">
+            OLAS ART — Studio Management <span class="inline-block transition-transform group-hover:translate-x-2">→</span>
+          </a>
+        </div>
+        <a href="index.html" class="inline-flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-white border border-gray-800 hover:border-gray-600 px-6 py-3 rounded-full transition-all">
+          ← Back to all projects
+        </a>
+      </div>
+
+      <!-- Main Contact CTA -->
+      <div class="reveal mb-14 pt-10 border-t border-gray-900">
+        <h2 class="text-3xl md:text-5xl font-bold text-white tracking-[-0.02em] mb-4">
+          Let's connect.
+        </h2>
+        <a href="mailto:tiagorohr2005@gmail.com" class="text-lg md:text-2xl text-gray-400 hover:text-white transition-colors inline-flex items-center gap-2 group">
+          tiagorohr2005@gmail.com
+          <span class="inline-block transition-transform group-hover:translate-x-2 text-gray-500">→</span>
+        </a>
+      </div>
+
+      <!-- Links Grid -->
+      <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-8 mb-14">
+        <div>
+          <p class="label-sm text-gray-500 mb-3">For Networking</p>
+          <a href="https://www.linkedin.com/in/tiago-rohr" target="_blank" rel="noopener noreferrer" class="text-sm md:text-base text-white hover:text-gray-300 transition-colors inline-flex items-center gap-2 group">
+            LinkedIn <span class="inline-block transition-transform group-hover:translate-x-1 text-gray-500">↗</span>
+          </a>
+        </div>
+        <div>
+          <p class="label-sm text-gray-500 mb-3">Direct Contact</p>
+          <div class="flex flex-col gap-1.5">
+            <a href="tel:+16452397885" class="text-sm md:text-base text-white hover:text-gray-300 transition-colors">+1 645 239 7885</a>
+            <a href="mailto:tiagorohr2005@gmail.com" class="text-sm md:text-base text-white hover:text-gray-300 transition-colors">tiagorohr2005@gmail.com</a>
+          </div>
+        </div>
+        <div>
+          <p class="label-sm text-gray-500 mb-3">Resume</p>
+          <a href="Tiago_Rohr_Resume.pdf" download="Tiago_Rohr_Resume.pdf" class="text-sm md:text-base text-white hover:text-gray-300 transition-colors inline-flex items-center gap-2 group">
+            Download PDF <span class="inline-block transition-transform group-hover:translate-x-1 text-gray-500">↓</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-gray-900 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-sm text-gray-600">
+        <p>© 2026 Tiago Rohr. All rights reserved.</p>
+        <p class="text-xs font-mono text-gray-700">* All project screenshots display simulated test data.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════ LIGHTBOX MODAL ═══════════════ -->
+  <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md hidden items-center justify-center p-4 sm:p-6 md:p-10 opacity-0 transition-opacity duration-300">
+    <button id="lightbox-close" class="absolute top-6 right-6 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white flex items-center justify-center text-lg transition-all" aria-label="Close Lightbox">
+      ✕
+    </button>
+    <div class="relative max-w-6xl w-full flex flex-col items-center max-h-[92vh]">
+      <div class="overflow-hidden rounded-2xl border border-white/15 bg-black/60 shadow-2xl w-full max-h-[82vh] flex items-center justify-center">
+        <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[82vh] object-contain transition-transform duration-300" />
+      </div>
+      <div class="w-full flex flex-col sm:flex-row items-center justify-between gap-2 mt-4 text-xs font-mono text-gray-400 px-2">
+        <p id="lightbox-caption" class="text-gray-300"></p>
+        <p class="text-gray-600">* Click outside or press ESC to close</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ MINIMALIST CLIPBOARD TOAST ═══════════════ -->
+  <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[200] pointer-events-none opacity-0 translate-y-3 transition-all duration-300">
+    <div class="px-5 py-2.5 rounded-full bg-white text-black text-xs font-mono font-medium shadow-2xl flex items-center gap-2.5 border border-black/10">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-600"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      <span>Email copied to clipboard!</span>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // Lightbox Modal Logic
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxCaption = document.getElementById('lightbox-caption');
+      const lightboxClose = document.getElementById('lightbox-close');
+
+      function openLightbox(src, alt) {
+        lightboxImg.src = src;
+        lightboxImg.alt = alt;
+        lightboxCaption.textContent = alt || 'Production View';
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+        requestAnimationFrame(() => {
+          lightbox.classList.remove('opacity-0');
+          lightbox.classList.add('opacity-100');
+        });
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('opacity-100');
+        lightbox.classList.add('opacity-0');
+        setTimeout(() => {
+          lightbox.classList.remove('flex');
+          lightbox.classList.add('hidden');
+          lightboxImg.src = '';
+          document.body.style.overflow = '';
+        }, 250);
+      }
+
+      document.querySelectorAll('.screenshot-frame').forEach(frame => {
+        frame.addEventListener('click', () => {
+          const img = frame.querySelector('img');
+          if (img) openLightbox(img.src, img.alt);
+        });
+      });
+
+      if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+      if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+          if (e.target === lightbox || e.target.classList.contains('backdrop-blur-md')) {
+            closeLightbox();
+          }
+        });
+      }
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox && !lightbox.classList.contains('hidden')) {
+          closeLightbox();
+        }
+      });
+
+      // Copy Email to Clipboard with Minimalist Toast
+      const toast = document.getElementById('toast');
+      let toastTimeout;
+
+      function showToast(message = 'Email copied to clipboard!') {
+        if (!toast) return;
+        const textEl = toast.querySelector('span');
+        if (textEl) textEl.textContent = message;
+        toast.classList.remove('opacity-0', 'translate-y-3', 'pointer-events-none');
+        toast.classList.add('opacity-100', 'translate-y-0');
+
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('opacity-100', 'translate-y-0');
+          toast.classList.add('opacity-0', 'translate-y-3', 'pointer-events-none');
+        }, 2500);
+      }
+
+      function copyEmail(e) {
+        if (e) e.preventDefault();
+        const email = 'tiagorohr2005@gmail.com';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(() => showToast()).catch(() => fallbackCopy(email));
+        } else {
+          fallbackCopy(email);
+        }
+      }
+
+      function fallbackCopy(text) {
+        const temp = document.createElement('textarea');
+        temp.value = text;
+        temp.style.position = 'fixed';
+        temp.style.opacity = '0';
+        document.body.appendChild(temp);
+        temp.select();
+        try {
+          document.execCommand('copy');
+          showToast();
+        } catch (err) {
+          window.location.href = `mailto:${text}`;
+        }
+        document.body.removeChild(temp);
+      }
+
+      document.querySelectorAll('a[href^="mailto:tiagorohr2005@gmail.com"]').forEach(link => {
+        link.addEventListener('click', copyEmail);
+      });
+    });
+  </script>
+
+</body>
+</html>
